@@ -1,0 +1,13 @@
+[
+    {
+        "row": 1,
+        "column": 1,
+        "clues": [
+            "You do not notice anything special on this row or column.",
+            "You have a feeling that this row or column might be empty",
+            "Maybe try a different row or column",
+            "This row or column may be futile!",
+            "Try another row or column"
+        ]
+    }
+]

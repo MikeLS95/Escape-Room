@@ -1,7 +1,22 @@
-def print_grid(grid, player_position, clue):
+grid = [[' ' for _ in range(4)] for _ in range(4)]
+
+player_position = [0, 0]
+
+movement = [0, 0]
+
+# remove this before you finish
+name = "Player"
+
+# add this back in later, removed now so its faster for testing the app
+# name = input("Enter your character name: ")
+
+# Below comment out code is where I want clues to be
+# clue = [(0, 1)][(0, 4)][(1, 0)][(1, 2)]
+
+clue = [(0, 1), (2, 3), (1, 2), (3, 0), (2, 0), (0, 3)]
+
+def print_grid(grid, player_position):
     grid[player_position[0]][player_position[1]] = name[0].upper()
-    for y, x in clue:
-        grid[y][x] = ' '
 
     for row in grid:
         print("", end="")
@@ -25,16 +40,6 @@ def move_object(player_position, movement, grid):
     else:
         return False
     
-grid = [[' ' for _ in range(4)] for _ in range(4)]
-
-player_position = [0, 0]
-
-movement = [0, 0]
-
-name = input("Enter your character name: ")
-
-clue = [(0, 1)]
-
 while True:
     print_grid(grid.copy(), player_position, clue)
 
@@ -59,6 +64,6 @@ while True:
         print("You must remain in the grid!")
         print("----------------------------")
 
-    if player_position == clue:
-        grid[player_position[0]][player_position[1]] = name[0].upper()
-        print("You take a look around and notice you are in some kind of grid")
+    if tuple(player_position) in clue:
+        print("You have found a clue")
+
