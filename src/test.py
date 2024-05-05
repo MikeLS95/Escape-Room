@@ -1,4 +1,4 @@
-import json, random
+import json, random, os
 # from features import Clue
 
 grid = [[' ' for _ in range(4)] for _ in range(4)]
@@ -67,6 +67,7 @@ def move_object(player_position, movement, grid):
         return True
     else:
         return False
+
 
 while True:
     print_grid(grid.copy(), player_position)

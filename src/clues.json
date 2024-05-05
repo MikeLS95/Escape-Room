@@ -1,13 +1,81 @@
 [
     {
-        "row": 1,
+        "row": 0,
         "column": 1,
         "clues": [
             "You do not notice anything special on this row or column.",
-            "You have a feeling that this row or column might be empty",
-            "Maybe try a different row or column",
+            "You have a feeling that this row or column might be empty.",
+            "Maybe try a different row or column.",
             "This row or column may be futile!",
-            "Try another row or column"
+            "Try another row or column."
+        ]
+    },
+    {
+        "row": 0,
+        "column": 3,
+        "clues": [
+            "You see a shiny object coming from this column, nothing on the row though.",
+            "Is that a glow you see coming from below?",
+            "You see a 'v' drawn on the wall.",
+            "This column feels warmer.",
+            "You hear a feint whisper 'below'."
+        ]
+    },
+    {
+        "row": 1,
+        "column": 0,
+        "clues": [
+            "Move right!",
+            "You sense something to your right.",
+            "You see an object to your right, what could it be?",
+            "You see a '-->' drawn on the wall",
+            "Nothing to be seen in this column."
+
+        ]
+    },
+    {
+        "row": 1,
+        "column": 2,
+        "clues": [
+            "You feel very close to something.",
+            "You sense something to your right, you also see a glimmer of light below.",
+            "You see an object to your right, what could it be?",
+            "You see a yellow '-->' drawn on the wall, next to it you make out markings that read 'v'.",
+            "Theres a small glimmer of light coming from below."
+
+        ]
+    },
+    {
+        "row": 2,
+        "column": 1,
+        "clues": [
+            "You do not notice anything special on this row or column.",
+            "You have a feeling that this row or column might be empty.",
+            "Maybe try a different row or column.",
+            "This row or column may be futile!",
+            "Try another row or column."
+        ]
+    },
+    {
+        "row": 2,
+        "column": 3,
+        "clues": [
+            "You see a shiny object coming from this column, nothing on the row though.",
+            "Is that a glow you see coming from above?",
+            "You see a '^' drawn on the wall.",
+            "This column feels warmer.",
+            "You hear a feint whisper 'above'."
+        ]
+    },
+    {
+        "row": 3,
+        "column": 0,
+        "clues": [
+            "You notice a glimmer of light coming from the right.",
+            "You see a '-->' drawn on the wall",
+            "Maybe you should search this row?",
+            "You feel drawn to a light",
+            "You smell a hint of fresh air"
         ]
     }
 ]
