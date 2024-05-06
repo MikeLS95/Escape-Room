@@ -1,5 +1,5 @@
 import json, random
-# from features import Clue
+# from features import Player, Key
 
 grid = [[' ' for _ in range(4)] for _ in range(4)]
 
@@ -8,7 +8,7 @@ player_position = [0, 0]
 movement = [0, 0]
 
 # remove this before you finish
-name = "Player"
+name = 'Player'
 
 # add this back in later, removed now so its faster for testing the app
 # name = input("Enter your character name: ")
@@ -24,7 +24,7 @@ name = "Player"
 
 empty = [(0, 2), (1, 1), (2, 0), (2,2), (3, 1), (3, 3)]
 
-key = [1, 3]
+key = [(1, 3)]
 
 def load():
     with open('clues.json') as f:
@@ -98,3 +98,5 @@ while True:
         print(clue[tuple(player_position)])
     elif tuple(player_position) in empty:
         print("You notice nothing interesting in this square.")
+    elif tuple(player_position) in key:
+        print("You have found the key!")
