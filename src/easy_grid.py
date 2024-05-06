@@ -1,5 +1,5 @@
 import json, random
-# from features import Player, Key
+from features import Player, Key
 
 grid = [[' ' for _ in range(4)] for _ in range(4)]
 
@@ -7,24 +7,11 @@ player_position = [0, 0]
 
 movement = [0, 0]
 
-# remove this before you finish
 name = 'Player'
-
-# add this back in later, removed now so its faster for testing the app
-# name = input("Enter your character name: ")
-
-# [ 0,0 S][ 0,1 C][ 0,2  ][ 0,3 C]
-# [ 1,0 C][ 1,1  ][ 1,2 C][ 1,3 K]
-# [ 2,0  ][ 2,1 C][ 2,2  ][ 2,3 C]
-# [ 3,0 C][ 3,1  ][ 3,2 E][ 3,3  ]
-# S = start 
-# C = clue
-# K = key
-# E = exit
 
 empty = [(0, 2), (1, 1), (2, 0), (2,2), (3, 1), (3, 3)]
 
-key = [(1, 3)]
+exit_door = [(3, 2)]
 
 def load():
     with open('clues.json') as f:
@@ -54,7 +41,7 @@ def print_grid(grid, player_position):
 
     grid[player_position[0]][player_position[1]] = ' '
 
-def move_object(player_position, movement, grid):
+def move_player(player_position, movement, grid):
     grid_height = len(grid)
     grid_width = len(grid[0])
 
@@ -87,7 +74,7 @@ while True:
         print("----------------------------------")
         continue
 
-    if not move_object(player_position, movement, grid):
+    if not move_player(player_position, movement, grid):
         print("----------------------------")
         print("You must remain in the grid!")
         print("----------------------------")
@@ -98,5 +85,4 @@ while True:
         print(clue[tuple(player_position)])
     elif tuple(player_position) in empty:
         print("You notice nothing interesting in this square.")
-    elif tuple(player_position) in key:
-        print("You have found the key!")
+    

@@ -22,18 +22,24 @@ class Player:
         self.name = name
         self.inv = Inventory(items)
 
+    def check_for_key(self, key):
+        if key.is_at_position(self.x, self.y) and not key.picked_up:
+            key.picked_up = True
+            print("You picked up the key!")
+
     def get_inventory(self):
         return self.inv.__dict__
 
 class Key:
-    def __init__(self, x=1, y=3):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
         self.picked_up = False
 
     def is_at_position(self, x, y):
-        print("You have found a key!")
+        print("You found the key! What does it open?")
         return self.x == x and self.y == y
+        
 
 class Door:
     def __init__(self, locked=True):
