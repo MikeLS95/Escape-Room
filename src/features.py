@@ -1,4 +1,5 @@
 import json, random
+from typing import List
 
 # class Clue:
 #     def __init__(self):
@@ -9,26 +10,92 @@ import json, random
 #         c0 = clues[0]
 #         print(f"{random.choice(c0['clues'])}")
 
-class Inventory:
-    def __init__(self, items=[]):
-        self.items = items
-
-    def transfer(self, to_inv):
-        to_inv.items += self.items
-        self.items = []
-
 class Player:
-    def __init__(self, name: str, items=[]):
+    def __init__(self, name: str, key: bool, player_position: List[str]):
         self.name = name
-        self.inv = Inventory(items)
+        self.key = key
+        self.__x_position = player_position[1]
+        self.__y_position = player_position[0]
+    
+    def set_position(self, position):
+        self.__x_position = position[1]
+        self.__y_position = position[0]
 
-    def check_for_key(self, key):
-        if key.player_position(self.x, self.y) and not key.get_key:
-            key.get_key = True
-            print("You picked up the key!")
+    def get_position(self):
+        return [self.__y_position, self.__x_position]
+    
+    def set_key():
+        pass
 
-    def get_inventory(self):
-        return self.inv.__dict__
+    def get_key():
+        pass
+
+def load():
+    with open('clues.json') as f:
+        clues = json.load(f)
+    return clues
+
+def get_random_clues():
+    clue_data = load()
+    return {
+        (0, 1): random.choice(clue_data[0]['clues']), 
+        (0, 3): random.choice(clue_data[1]['clues']),
+        (1, 0): random.choice(clue_data[2]['clues']), 
+        (1, 2): random.choice(clue_data[3]['clues']),
+        (2, 1): random.choice(clue_data[4]['clues']), 
+        (2, 3): random.choice(clue_data[5]['clues']),
+        (3, 0): random.choice(clue_data[6]['clues'])
+    }
+
+class Grid:
+    def __init__(self, player: Player, grid_size: int):
+        self.grid = [[' 'for _ in range(grid_size)] for _ in range(grid_size)]
+        self.player = player
+        self.grid_height = len(self.grid)
+        self.grid_width = len(self.grid[0])
+        self.clues = get_random_clues()
+
+    def move_player(self, player: Player, movement):
+        current_position = player.get_position()
+
+        new_y = current_position[0] + movement[0]
+        new_x = current_position[1] + movement[1]
+
+        if 0 <= new_y < self.grid_height and 0 <= new_x < self.grid_width:
+            player.set_position([new_y, new_x])
+            return True
+        else:
+            return False
+        
+    def print_grid(self, player_position):
+        copy_grid = self.grid.copy()
+        copy_grid[player_position[0]][player_position[1]] = self.player.name[0].upper()
+
+        for row in copy_grid:
+            print("", end="")
+            for player in row:
+                print("[ " + player + " ]", end="")
+            print("")
+
+        copy_grid[player_position[0]][player_position[1]] = ' '
+
+    def message(self):
+        current_position = self.player.get_position()
+        if tuple(current_position) in self.clue:
+            print("You have found a clue:")
+            print(self.clue[tuple(current_position)])
+        elif tuple(current_position) in key:
+            self.player.key = True
+            print("You have found the key! What does it open?")
+        elif tuple(current_position) in exit_door and player.key == False:
+            print("You have found the exit door! Hmm thats weird, it appears to be locked, you will need to find the key!.")
+        elif tuple(current_position) in exit_door and player.key == True:
+            print("You have found the exit door!  You use the key to open the door.")
+            grid.print_grid(player.get_position())
+            print("You have won!")
+            exit()
+        else:
+            print("You find nothing interesting.")
 
 class Key:
     def __init__(self, x, y):
