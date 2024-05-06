@@ -23,8 +23,8 @@ class Player:
         self.inv = Inventory(items)
 
     def check_for_key(self, key):
-        if key.is_at_position(self.x, self.y) and not key.picked_up:
-            key.picked_up = True
+        if key.player_position(self.x, self.y) and not key.get_key:
+            key.get_key = True
             print("You picked up the key!")
 
     def get_inventory(self):

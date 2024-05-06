@@ -28,7 +28,7 @@
             "Move right!",
             "You sense something to your right.",
             "You see an object to your right, what could it be?",
-            "You see a '-->' drawn on the wall",
+            "You see a '-->' drawn on the wall.",
             "Nothing to be seen in this column."
 
         ]
@@ -72,10 +72,10 @@
         "column": 0,
         "clues": [
             "You notice a glimmer of light coming from the right.",
-            "You see a '-->' drawn on the wall",
+            "You see a '-->' drawn on the wall.",
             "Maybe you should search this row?",
-            "You feel drawn to a light",
-            "You smell a hint of fresh air"
+            "You feel drawn to a light.",
+            "You smell a hint of fresh air."
         ]
     }
 ]

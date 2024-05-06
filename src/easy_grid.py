@@ -9,7 +9,7 @@ movement = [0, 0]
 
 name = 'Player'
 
-empty = [(0, 2), (1, 1), (2, 0), (2,2), (3, 1), (3, 3)]
+key = [(1, 3)]
 
 exit_door = [(3, 2)]
 
@@ -69,9 +69,9 @@ while True:
     elif direction == "right":
         movement = [0, 1]
     else:
-        print("----------------------------------")
-        print("I dont think that was a direction!")
-        print("----------------------------------")
+        print("-------------------------")
+        print("That was not a direction!")
+        print("-------------------------")
         continue
 
     if not move_player(player_position, movement, grid):
@@ -83,6 +83,11 @@ while True:
     if tuple(player_position) in clue:
         print("You have found a clue:")
         print(clue[tuple(player_position)])
-    elif tuple(player_position) in empty:
-        print("You notice nothing interesting in this square.")
+    elif tuple(player_position) in key:
+        print("You have found the key! What does it open?")
+    elif tuple(player_position) in exit_door:
+        print("You have found the exit door! Hmm thats weird, it appears to be locked.")
+    else:
+        print("You find nothing interesting.")
+
     
