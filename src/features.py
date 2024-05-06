@@ -1,15 +1,6 @@
 import json, random
 from typing import List
 
-# class Clue:
-#     def __init__(self):
-#         self.clues = ['0,1', '0,3', '1,0', '1,2', '2,1', '2,3', '3,0']
-
-#     with open('clues.json') as f:
-#         clues = json.load(f)
-#         c0 = clues[0]
-#         print(f"{random.choice(c0['clues'])}")
-
 class Player:
     def __init__(self, name: str, key: bool, player_position: List[str]):
         self.name = name
@@ -81,17 +72,17 @@ class Grid:
 
     def message(self):
         current_position = self.player.get_position()
-        if tuple(current_position) in self.clue:
+        if tuple(current_position) in self.clues:
             print("You have found a clue:")
-            print(self.clue[tuple(current_position)])
+            print(self.clues[tuple(current_position)])
         elif tuple(current_position) in key:
             self.player.key = True
             print("You have found the key! What does it open?")
-        elif tuple(current_position) in exit_door and player.key == False:
+        elif tuple(current_position) in exit_door and self.player.key == False:
             print("You have found the exit door! Hmm thats weird, it appears to be locked, you will need to find the key!.")
-        elif tuple(current_position) in exit_door and player.key == True:
+        elif tuple(current_position) in exit_door and self.player.key == True:
             print("You have found the exit door!  You use the key to open the door.")
-            grid.print_grid(player.get_position())
+            self.print_grid(self.player.get_position())
             print("You have won!")
             exit()
         else:
@@ -118,3 +109,7 @@ class Entrance(Door):
 
 class Exit(Door):
     pass
+
+key = [(1, 3)]
+
+exit_door = [(3, 2)]

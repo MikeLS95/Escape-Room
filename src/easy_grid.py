@@ -1,21 +1,12 @@
-import json, random
 from features import Player, Grid
-
-grid = [[' ' for i in range(4)] for i in range(4)]
 
 start_position = [0, 0]
 
-movement = [0, 0]
-
 name = 'Player'
-
-key = [(1, 3)]
-
-exit_door = [(3, 2)]
 
 def run():
     player = Player('Mike', False, start_position)
-    fourbyfour = Grid(player, 4)
+    fourbyfour = Grid(player, 4, [0, 0])
 
     while True:
         fourbyfour.print_grid(player.get_position())
@@ -41,7 +32,7 @@ def run():
             print("You must remain in the grid!")
             print("----------------------------")
     
-        message(grid)
+        fourbyfour.message()
 
 run()
     
