@@ -1,8 +1,8 @@
 from features import Player, Grid
 
-class Game:
+class EscapeRoom:
   def __init__(self, name, start_position):
-    self.name = input("Name your character!")
+    self.name = name
     self.player = Player(name, False, start_position)
     self.grid = Grid(self.player, 4)
 
@@ -33,5 +33,5 @@ class Game:
       self.grid.message()
 
 # Usage
-game = Game("Mike", [0, 0])
+game = EscapeRoom("Mike", [0, 0])
 game.run()

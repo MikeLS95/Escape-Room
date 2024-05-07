@@ -21,22 +21,26 @@ class Player:
     def get_key():
         pass
 
-def load():
-    with open('clues.json') as f:
-        clues = json.load(f)
-    return clues
+class Clue:
+    def __init__(self, filename="clues.json"):
+        self.filename = filename
+        self.clues = self.load_clues()
 
-def get_random_clues():
-    clue_data = load()
-    return {
-        (0, 1): random.choice(clue_data[0]['clues']), 
-        (0, 3): random.choice(clue_data[1]['clues']),
-        (1, 0): random.choice(clue_data[2]['clues']), 
-        (1, 2): random.choice(clue_data[3]['clues']),
-        (2, 1): random.choice(clue_data[4]['clues']), 
-        (2, 3): random.choice(clue_data[5]['clues']),
-        (3, 0): random.choice(clue_data[6]['clues'])
-    }
+    def load_clues(self):
+        with open(self.filename) as f:
+            return json.load(f)
+
+    def get_random_clues(self):
+        data = self.clues
+        clues = {}
+        clues[(0, 1)] = random.choice(data[0]['clues'])
+        clues[(0, 3)] = random.choice(data[1]['clues'])
+        clues[(1, 0)] = random.choice(data[2]['clues'])
+        clues[(1, 2)] = random.choice(data[3]['clues'])
+        clues[(2, 1)] = random.choice(data[4]['clues'])
+        clues[(2, 3)] = random.choice(data[5]['clues'])
+        clues[(3, 0)] = random.choice(data[6]['clues'])
+        return clues
 
 class Grid:
     def __init__(self, player: Player, grid_size: int):
@@ -44,7 +48,10 @@ class Grid:
         self.player = player
         self.grid_height = len(self.grid)
         self.grid_width = len(self.grid[0])
-        self.clues = get_random_clues()
+        self.clue_manager = Clue()
+        self.clues = self.clue_manager.get_random_clues()
+        self.key = [(1, 3)]
+        self.exit_door = [(3, 2)]
 
     def move_player(self, player: Player, movement):
         current_position = player.get_position()
@@ -75,41 +82,15 @@ class Grid:
         if tuple(current_position) in self.clues:
             print("You have found a clue:")
             print(self.clues[tuple(current_position)])
-        elif tuple(current_position) in key:
+        elif tuple(current_position) in self.key:
             self.player.key = True
             print("You have found the key! What does it open?")
-        elif tuple(current_position) in exit_door and self.player.key == False:
-            print("You have found the exit door! Hmm thats weird, it appears to be locked, you will need to find the key!.")
-        elif tuple(current_position) in exit_door and self.player.key == True:
+        elif tuple(current_position) in self.exit_door and self.player.key == False:
+            print("You have found the exit door! Hmm thats weird, it appears to be locked, you will need to find the key!")
+        elif tuple(current_position) in self.exit_door and self.player.key == True:
             print("You have found the exit door!  You use the key to open the door.")
             self.print_grid(self.player.get_position())
             print("You have won!")
             exit()
         else:
             print("You find nothing interesting.")
-
-class Key:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.picked_up = False
-
-    def is_at_position(self, x, y):
-        print("You found the key! What does it open?")
-        return self.x == x and self.y == y
-        
-
-class Door:
-    def __init__(self, locked=True):
-        self.locked = locked
-
-
-class Entrance(Door):
-    pass
-
-class Exit(Door):
-    pass
-
-key = [(1, 3)]
-
-exit_door = [(3, 2)]

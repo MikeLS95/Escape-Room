@@ -6,7 +6,7 @@ name = 'Player'
 
 def run():
     player = Player('Mike', False, start_position)
-    fourbyfour = Grid(player, 4, [0, 0])
+    fourbyfour = Grid(player, 4)
 
     while True:
         fourbyfour.print_grid(player.get_position())
