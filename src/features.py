@@ -1,6 +1,5 @@
 import json
 import random
-import functions
 import time
 from typing import List
 
@@ -72,14 +71,13 @@ class Grid:
 
     def print_grid(self, player_position):
         copy_grid = self.grid.copy()
-        copy_grid[player_position[0]][player_position[1]
-                                      ] = self.player.name[0].upper()
+        copy_grid[player_position[0]][player_position[1]] = self.player.name[0].upper()
 
         for row in copy_grid:
-            print("", end="")
+            print("|", end="")
             for player in row:
-                print("[ " + player + " ]", end="")
-            print("")
+                print("  " + player + "  ", end="")
+            print("|")
 
         copy_grid[player_position[0]][player_position[1]] = ' '
 
@@ -96,8 +94,8 @@ class Grid:
         elif tuple(current_position) in self.exit_door and self.player.key:
             print("You have found the exit door!  You use the key to open the door.")
             self.print_grid(self.player.get_position())
-            print(f"Congratulations {Player.name}, you have escaped!")
+            print(f"Congratulations, you have escaped!")
             time.sleep(2)
-            functions.main_menu()
+            return 'game_over'
         else:
             print("You find nothing interesting.")
