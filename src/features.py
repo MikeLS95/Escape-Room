@@ -1,16 +1,8 @@
 import json
 import random
+import functions
+import time
 from typing import List
-
-
-def main_menu():
-    ascii_banner = pyfiglet.figlet_format("ESCAPE ROOM!")
-    print(ascii_banner)
-    print("1. Select your grid size")
-    print("2. Exit application")
-    choice = input("Enter your choice: ")
-    return choice
-
 
 class Player:
     def __init__(self, name: str, key: bool, player_position: List[str]):
@@ -104,7 +96,8 @@ class Grid:
         elif tuple(current_position) in self.exit_door and self.player.key:
             print("You have found the exit door!  You use the key to open the door.")
             self.print_grid(self.player.get_position())
-            print("You have won!")
-            exit()
+            print("Congratulations, you have escaped!")
+            time.sleep(2)
+            functions.main_menu()
         else:
             print("You find nothing interesting.")

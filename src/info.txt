@@ -10,7 +10,9 @@
 # add this back in later, removed now so its faster for testing the app
 # name = input("Enter your character name: ")
 
-
+#### FIX THESE ####
+1. On menu, input of 2 after finishing the game will reprint the grid instead of closing the app
+2. No way to return to menu in game
 
 easy_grid just in case I break the game:
 

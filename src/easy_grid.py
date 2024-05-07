@@ -35,7 +35,6 @@ class EscapeRoom:
                 "down": [1, 0],
                 "left": [0, -1],
                 "right": [0, 1],
-                "menu": functions.main_menu()
             }.get(direction)
 
             if not movement:
