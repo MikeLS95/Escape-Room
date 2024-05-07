@@ -10,96 +10,45 @@
 # add this back in later, removed now so its faster for testing the app
 # name = input("Enter your character name: ")
 
-Features just in case I break the game:
 
-import json, random
-from typing import List
 
-class Player:
-    def __init__(self, name: str, key: bool, player_position: List[str]):
-        self.name = name
-        self.key = key
-        self.__x_position = player_position[1]
-        self.__y_position = player_position[0]
-    
-    def set_position(self, position):
-        self.__x_position = position[1]
-        self.__y_position = position[0]
+easy_grid just in case I break the game:
 
-    def get_position(self):
-        return [self.__y_position, self.__x_position]
-    
-    def set_key():
-        pass
+from features import Player, Grid
 
-    def get_key():
-        pass
+start_position = [0, 0]
 
-def load():
-    with open('clues.json') as f:
-        clues = json.load(f)
-    return clues
+name = 'Player'
 
-def get_random_clues():
-    clue_data = load()
-    return {
-        (0, 1): random.choice(clue_data[0]['clues']), 
-        (0, 3): random.choice(clue_data[1]['clues']),
-        (1, 0): random.choice(clue_data[2]['clues']), 
-        (1, 2): random.choice(clue_data[3]['clues']),
-        (2, 1): random.choice(clue_data[4]['clues']), 
-        (2, 3): random.choice(clue_data[5]['clues']),
-        (3, 0): random.choice(clue_data[6]['clues'])
-    }
+def run():
+    player = Player('Mike', False, start_position)
+    fourbyfour = Grid(player, 4)
 
-class Grid:
-    def __init__(self, player: Player, grid_size: int):
-        self.grid = [[' 'for _ in range(grid_size)] for _ in range(grid_size)]
-        self.player = player
-        self.grid_height = len(self.grid)
-        self.grid_width = len(self.grid[0])
-        self.clues = get_random_clues()
-        self.key = [(1, 3)]
-        self.exit_door = [(3, 2)]
+    while True:
+        fourbyfour.print_grid(player.get_position())
 
-    def move_player(self, player: Player, movement):
-        current_position = player.get_position()
+        direction = input("Where would you like to move? (up, down, left, right): ").lower()
 
-        new_y = current_position[0] + movement[0]
-        new_x = current_position[1] + movement[1]
-
-        if 0 <= new_y < self.grid_height and 0 <= new_x < self.grid_width:
-            player.set_position([new_y, new_x])
-            return True
+        if direction == "up":
+            movement = [-1, 0]
+        elif direction == "down":
+            movement = [1, 0]
+        elif direction == "left":
+            movement = [0, -1]
+        elif direction == "right":
+            movement = [0, 1]
         else:
-            return False
-        
-    def print_grid(self, player_position):
-        copy_grid = self.grid.copy()
-        copy_grid[player_position[0]][player_position[1]] = self.player.name[0].upper()
+            print("-------------------------")
+            print("That was not a direction!")
+            print("-------------------------")
+            continue
 
-        for row in copy_grid:
-            print("", end="")
-            for player in row:
-                print("[ " + player + " ]", end="")
-            print("")
+        if not fourbyfour.move_player(player, movement):
+            print("----------------------------")
+            print("You must remain in the grid!")
+            print("----------------------------")
+    
+        fourbyfour.message()
 
-        copy_grid[player_position[0]][player_position[1]] = ' '
-
-    def message(self):
-        current_position = self.player.get_position()
-        if tuple(current_position) in self.clues:
-            print("You have found a clue:")
-            print(self.clues[tuple(current_position)])
-        elif tuple(current_position) in self.key:
-            self.player.key = True
-            print("You have found the key! What does it open?")
-        elif tuple(current_position) in self.exit_door and self.player.key == False:
-            print("You have found the exit door! Hmm thats weird, it appears to be locked, you will need to find the key!")
-        elif tuple(current_position) in self.exit_door and self.player.key == True:
-            print("You have found the exit door!  You use the key to open the door.")
-            self.print_grid(self.player.get_position())
-            print("You have won!")
-            exit()
-        else:
-            print("You find nothing interesting.")
+run()
+    

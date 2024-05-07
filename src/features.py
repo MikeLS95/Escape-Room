@@ -1,5 +1,16 @@
-import json, random
+import json
+import random
 from typing import List
+
+
+def main_menu():
+    ascii_banner = pyfiglet.figlet_format("ESCAPE ROOM!")
+    print(ascii_banner)
+    print("1. Select your grid size")
+    print("2. Exit application")
+    choice = input("Enter your choice: ")
+    return choice
+
 
 class Player:
     def __init__(self, name: str, key: bool, player_position: List[str]):
@@ -7,19 +18,20 @@ class Player:
         self.key = key
         self.__x_position = player_position[1]
         self.__y_position = player_position[0]
-    
+
     def set_position(self, position):
         self.__x_position = position[1]
         self.__y_position = position[0]
 
     def get_position(self):
         return [self.__y_position, self.__x_position]
-    
+
     def set_key():
         pass
 
     def get_key():
         pass
+
 
 class Clue:
     def __init__(self, filename="clues.json"):
@@ -41,6 +53,7 @@ class Clue:
         clues[(2, 3)] = random.choice(data[5]['clues'])
         clues[(3, 0)] = random.choice(data[6]['clues'])
         return clues
+
 
 class Grid:
     def __init__(self, player: Player, grid_size: int):
@@ -64,10 +77,11 @@ class Grid:
             return True
         else:
             return False
-        
+
     def print_grid(self, player_position):
         copy_grid = self.grid.copy()
-        copy_grid[player_position[0]][player_position[1]] = self.player.name[0].upper()
+        copy_grid[player_position[0]][player_position[1]
+                                      ] = self.player.name[0].upper()
 
         for row in copy_grid:
             print("", end="")
@@ -87,7 +101,7 @@ class Grid:
             print("You have found the key! What does it open?")
         elif tuple(current_position) in self.exit_door and self.player.key == False:
             print("You have found the exit door! Hmm thats weird, it appears to be locked, you will need to find the key!")
-        elif tuple(current_position) in self.exit_door and self.player.key == True:
+        elif tuple(current_position) in self.exit_door and self.player.key:
             print("You have found the exit door!  You use the key to open the door.")
             self.print_grid(self.player.get_position())
             print("You have won!")
