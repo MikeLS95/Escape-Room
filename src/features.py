@@ -96,7 +96,7 @@ class Grid:
         elif tuple(current_position) in self.exit_door and self.player.key:
             print("You have found the exit door!  You use the key to open the door.")
             self.print_grid(self.player.get_position())
-            print("Congratulations, you have escaped!")
+            print(f"Congratulations {Player.name}, you have escaped!")
             time.sleep(2)
             functions.main_menu()
         else:
