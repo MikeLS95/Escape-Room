@@ -71,7 +71,7 @@ class Grid:
 
     def print_grid(self, player_position):
         copy_grid = self.grid.copy()
-        copy_grid[player_position[0]][player_position[1]] = self.player.name[0]
+        copy_grid[player_position[0]][player_position[1]] = self.player.name[0].upper()
 
         for row in copy_grid:
             print("|", end="")

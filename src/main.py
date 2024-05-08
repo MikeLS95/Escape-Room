@@ -12,8 +12,8 @@ class EscapeRoom:
         self.running = False
 
     def get_player_name(self):
-        player_name = input("What is your characters name? ")
-        return player_name.strip()
+        player_name = input("What is your characters name?: ")
+        return player_name
 
     def _menu(self):
         user_choice = menu.main_menu()
@@ -65,13 +65,14 @@ class EscapeRoom:
 
                 if result == 'game_over':
                     self.player.set_position(self.start_position)
+                    self.player.key = False
                     self.running = False
                     print("Game over! Thanks for playing!")
 
 
 class InvalidMenuChoice(Exception):
+    """Raised when a player inputs something other than 1 or two after being prompted with menu options on the main menu"""
     pass
-
 
 # Usage
 game = EscapeRoom()
