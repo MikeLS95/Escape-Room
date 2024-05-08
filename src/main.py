@@ -4,12 +4,16 @@ import sys
 
 
 class EscapeRoom:
-    def __init__(self, name, start_position):
-        self.name = name
-        self.start_position = start_position
-        self.player = Player(name, False, start_position)
+    def __init__(self):
+        self.name = self.get_player_name()
+        self.start_position = [0, 0]
+        self.player = Player(self.name, False, self.start_position)
         self.grid = Grid(self.player, 4)
         self.running = False
+
+    def get_player_name(self):
+        player_name = input("What is your characters name? ")
+        return player_name.strip()
 
     def _menu(self):
         user_choice = menu.main_menu()
@@ -34,11 +38,11 @@ class EscapeRoom:
 
             direction = input(
                 "Where would you like to move? ('up', 'down', 'left', 'right' or 'menu' to return to main menu): ").lower()
-            
+
             if direction == "menu":
                 self.running = False
                 continue
-            else:         
+            else:
                 movement = {
                     "up": [-1, 0],
                     "down": [1, 0],
@@ -63,13 +67,12 @@ class EscapeRoom:
                     self.player.set_position(self.start_position)
                     self.running = False
                     print("Game over! Thanks for playing!")
-                    
-
 
 
 class InvalidMenuChoice(Exception):
     pass
 
+
 # Usage
-game = EscapeRoom("Player", [0, 0])
+game = EscapeRoom()
 game.run()

@@ -1,5 +1,6 @@
 import pyfiglet
 
+
 def main_menu():
     ascii_banner = pyfiglet.figlet_format("ESCAPE ROOM")
     print(ascii_banner)

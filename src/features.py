@@ -71,7 +71,7 @@ class Grid:
 
     def print_grid(self, player_position):
         copy_grid = self.grid.copy()
-        copy_grid[player_position[0]][player_position[1]] = self.player.name[0].upper()
+        copy_grid[player_position[0]][player_position[1]] = self.player.name[0]
 
         for row in copy_grid:
             print("|", end="")
@@ -94,7 +94,7 @@ class Grid:
         elif tuple(current_position) in self.exit_door and self.player.key:
             print("You have found the exit door!  You use the key to open the door.")
             self.print_grid(self.player.get_position())
-            print(f"Congratulations, you have escaped!")
+            print(f"Congratulations {self.player.name}, you have escaped!")
             time.sleep(2)
             return 'game_over'
         else:
