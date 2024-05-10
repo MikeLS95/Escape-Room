@@ -72,6 +72,8 @@ class EscapeRoom:
                     print("----------------------------")
                     print("You must remain in the grid!")
                     print("----------------------------")
+                # Handled above two errors manually for a better user experience.
+
 
                 # Gets a message from the Grid class and prints out the message according to where the player is currently positioned on the grid.
                 result = self.grid.message()
