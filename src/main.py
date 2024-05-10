@@ -1,6 +1,7 @@
 from features import Player, Grid
 import menu
 import sys
+import time
 
 
 class EscapeRoom:
@@ -49,7 +50,11 @@ class EscapeRoom:
 
             # If input "menu" is entered, sets running to False, which will reset the grid.
             if direction == "menu":
+                self.player.set_position(self.start_position)
+                self.player.key = False
                 self.running = False
+                print("Returning to menu, thanks for playing!")
+                time.sleep(2)
                 continue
             # When the user inputs a movement, the input is passed to .get(direction) and then printed onto the updated grid
             else:
