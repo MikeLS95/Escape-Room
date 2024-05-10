@@ -80,6 +80,12 @@ After the above message is displayed, a timer for 2seconds will start, this is h
 
 ## System Requirements
 
+### Python
+
+
+
+### Dependencies
+
 ## Help Documentation
 
 ## References
