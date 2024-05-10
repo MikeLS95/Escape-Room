@@ -6,7 +6,6 @@ then
     exit 1
 
 fi
-cd .src;
 echo 'Thank you for playing my Escape Room!'
 python3 -m venv . venv
 source .venv/bin/activate
