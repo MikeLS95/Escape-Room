@@ -113,14 +113,13 @@ class EscapeRoom:  # This is the main class for the game.  Includes all the func
                 if result == 'game_over':
                     EscapeRoom.game_over(self)
 
+
 # Raised when a player inputs something other than 1 or two after being
-# prompted with menu options on the main menu
-
-
+# prompted with menu options on the main menu.
 class InvalidMenuChoice(Exception):
     pass
 
 
-# Usage for the run function inside of the EscapeRoom class
+# Usage for the run function inside of the EscapeRoom class.
 game = EscapeRoom()
 game.run()
