@@ -157,9 +157,9 @@ Completed Plan
 
 1. Ensure you are in a directory you wish to install the game in e.g.  ```mkdir "filename"``` change into directory ```cd "filename"```.
 
-2. When you are in your chosen directory, clone the repository with command ```git clone git@github.com:MikeLS95/Escape-Room---Terminal-App.git```
+2. When you are in your chosen directory, clone the repository with command ```git clone git@github.com:MikeLS95/Escape-Room.git```
 
-3. Ensure you are in the source file by using the command ```cd .src```.  
+3. Ensure you are in the source file by using the command ```cd ./Escape-Room/src```.  
 
 4. Enjoy the Escape Room!
 
