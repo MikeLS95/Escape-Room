@@ -3,19 +3,27 @@ import random
 import time
 from typing import List
 
-# The class for the player character
-class Player:
+
+class Player:  # The class for the player character
     def __init__(self, name: str, key: bool, player_position: List[str]):
-        self.name = name # Player name is generated using an input in the EscapeRoom class using the get_player_name function.
-        self.key = key # Key is set to False by default.  This will be set to True once the player walks onto the key square.
-        self.__x_position = player_position[1] # Player position on the x axis of the grid.
-        self.__y_position = player_position[0] # Player position on the y axis of the grid.
+        # Player name is generated using an input in the EscapeRoom class using
+        # the get_player_name function.
+        self.name = name
+        # Key is set to False by default.  This will be set to True once the
+        # player walks onto the key square.
+        self.key = key
+        # Player position on the x axis of the grid.
+        self.__x_position = player_position[1]
+        # Player position on the y axis of the grid.
+        self.__y_position = player_position[0]
 
     def set_position(self, position):
         self.__x_position = position[1]
         self.__y_position = position[0]
 
-    # Used in the Grid class so the game knows where the updated player position is after movements, reprinting the grid with the updated position.
+    # Used in the Grid class so the game knows where the updated player
+    # position is after movements, reprinting the grid with the updated
+    # position.
     def get_position(self):
         return [self.__y_position, self.__x_position]
 
@@ -25,21 +33,23 @@ class Player:
     def get_key():
         pass
 
-# Accesses the clues.json file to get the clues for the player.
-class Clue:
+
+class Clue:  # Accesses the clues.json file to get the clues for the player.
     def __init__(self, filename="clues.json"):
-        self.filename = filename # File name provided above "clues.json"
+        self.filename = filename  # File name provided above "clues.json"
         self.clues = self.load_clues()
 
     def load_clues(self):
         with open(self.filename) as f:
-            return json.load(f) # Loads the clues.json file and loads the clue into the grid
+            # Loads the clues.json file and loads the clue into the grid
+            return json.load(f)
 
     def get_random_clues(self):
         data = self.clues
-        clues = {} # Dictionary for clues.  
+        clues = {}  # Dictionary for clues.
         # Each clue in the dictionary has a unique x & y position.  If a player lands on one of these positions, a random clue is printed for that position.
-        # Only accesses the 'clues' key in the dictionary and prints a random clue from the list for that position.
+        # Only accesses the 'clues' key in the dictionary and prints a random
+        # clue from the list for that position.
         clues[(0, 1)] = random.choice(data[0]['clues'])
         clues[(0, 3)] = random.choice(data[1]['clues'])
         clues[(1, 0)] = random.choice(data[2]['clues'])
@@ -49,17 +59,18 @@ class Clue:
         clues[(3, 0)] = random.choice(data[6]['clues'])
         return clues
 
-# The grid for where the game is played
-class Grid:
+
+class Grid:  # The grid for where the game is played
     def __init__(self, player: Player, grid_size: int):
         self.grid = [[' 'for _ in range(grid_size)] for _ in range(grid_size)]
-        self.player = player # Imports the Player class into the grid
-        self.grid_height = len(self.grid) # Height of the grid
-        self.grid_width = len(self.grid[0]) # Width of the grid
-        self.clue_manager = Clue() # Imports the Clue class into the grid
-        self.clues = self.clue_manager.get_random_clues() # Function for receiving the random clue from the clues.json file.
-        self.key = [(1, 3)] # Position of the key.
-        self.exit_door = [(3, 2)] # Position of the exit door.
+        self.player = player  # Imports the Player class into the grid
+        self.grid_height = len(self.grid)  # Height of the grid
+        self.grid_width = len(self.grid[0])  # Width of the grid
+        self.clue_manager = Clue()  # Imports the Clue class into the grid
+        # Function for receiving the random clue from the clues.json file.
+        self.clues = self.clue_manager.get_random_clues()
+        self.key = [(1, 3)]  # Position of the key.
+        self.exit_door = [(3, 2)]  # Position of the exit door.
 
     # Function for player movement inputs, reprinting the grid for each input.
     def move_player(self, player: Player, movement):
@@ -76,32 +87,48 @@ class Grid:
 
     def print_grid(self, player_position):
         copy_grid = self.grid.copy()
-        # Ensures that the player avatar is imported into the grid using the player name provided by th user at the start.
-        copy_grid[player_position[0]][player_position[1]] = self.player.name[0].upper() # Coverts the player name into the first letter only and converts to upper case.
+        # Ensures that the player avatar is imported into the grid using the
+        # player name provided by th user at the start.
+        # Coverts the player name into the first letter only and converts to
+        # upper case.
+        copy_grid[player_position[0]][player_position[1]
+                                      ] = self.player.name[0].upper()
 
         for row in copy_grid:
-            print("|", end="") # Provides the right side boarder for the grid.
+            print("|", end="")  # Provides the right side boarder for the grid.
             for player in row:
-                print("  " + player + "  ", end="") # Ensures that each position of the grid is hidden.
-            print("|") # Provides the left side boarder for the grid.
+                # Ensures that each position of the grid is hidden.
+                print("  " + player + "  ", end="")
+            print("|")  # Provides the left side boarder for the grid.
 
         copy_grid[player_position[0]][player_position[1]] = ' '
 
     def message(self):
         current_position = self.player.get_position()
-        if tuple(current_position) in self.clues: # Displays a clue message randomly generated by the clues.json file for each clue position on the grid.
+        # Displays a clue message randomly generated by the clues.json file for
+        # each clue position on the grid.
+        if tuple(current_position) in self.clues:
             print("You have found a clue:")
             print(self.clues[tuple(current_position)])
-        elif tuple(current_position) in self.key: # Displays a message that you have the key and sets the key to True on the Player class.
+        # Displays a message that you have the key and sets the key to True on
+        # the Player class.
+        elif tuple(current_position) in self.key:
             self.player.key = True
             print("You have found the key! What does it open?")
-        elif tuple(current_position) in self.exit_door and self.player.key == False: # If the player does not have the clue yet, prints a message saying they will need the key.
+        # If the player does not have the clue yet, prints a message saying
+        # they will need the key.
+        elif tuple(current_position) in self.exit_door and self.player.key == False:
             print("You have found the exit door! Hmm thats weird, it appears to be locked, you will need to find the key!")
-        elif tuple(current_position) in self.exit_door and self.player.key: # If the player has the key, prints a message when on the exit door saying the player has won the game.
+        # If the player has the key, prints a message when on the exit door
+        # saying the player has won the game.
+        elif tuple(current_position) in self.exit_door and self.player.key:
             print("You have found the exit door!  You use the key to open the door.")
             self.print_grid(self.player.get_position())
             print(f"Congratulations {self.player.name}, you have escaped!")
-            time.sleep(2) # Two second pause after printing the 'You have escaped' message.
-            return 'game_over' # Sets result to 'game_over' on line 80 of main.py
+            # Two second pause after printing the 'You have escaped' message.
+            time.sleep(2)
+            return 'game_over'  # Sets result to 'game_over' on line 80 of main.py
         else:
-            print("You find nothing interesting.") # If the player lands on an empty square in the grid, prints this message.
+            # If the player lands on an empty square in the grid, prints this
+            # message.
+            print("You find nothing interesting.")

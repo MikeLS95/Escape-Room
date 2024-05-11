@@ -168,3 +168,7 @@ Completed Plan
 1. Check to make sure that the game can be executed by running ```chmod +x escape_room.sh```.
 
 2. Run script when you are ready to play the escape room ```./escape_room.sh```.
+
+### References
+
+Rivera), PW (Thanks to CJ and S n.d., pyfiglet: Pure-python FIGlet implementation, PyPI
