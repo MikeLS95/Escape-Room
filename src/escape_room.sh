@@ -6,8 +6,8 @@ then
     exit 1
 
 fi
-echo 'Thank you for playing my Escape Room!'
-python3 -m venv . venv
+echo 'Now installing Escape Room..'
+python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
 echo 'Everything has been installed.  Enjoy playing!'
